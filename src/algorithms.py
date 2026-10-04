@@ -290,13 +290,18 @@ if __name__ == '__main__':
 
     grid = [
         [1000], # Number of held-out samples
-        [2], # Number of training samples
-        [2], # Number of samples to be generated
+        [50], # Number of training samples
+        [50], # Number of samples to be generated
         [100], # Number of steps
-        ['line'], # Target
-        ['trajectories'], # Plotting strategy
+        # ['line'], # Target
+        # ['checkerboard'], # Target
+        ['moons'], # Target
+        # ['chair'], # Target
+        # ['spirals'], # Target
+        # ['trajectories'], # Plotting strategy
+        ['scatterplot'], # Plotting strategy
         ['smoothed'], # Algorithm
-        [1], # sigma
+        [0.4], # sigma
         [2], # M
         # [5], # nprobe
         # [15], # k

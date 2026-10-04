@@ -72,7 +72,7 @@ def trajectory_animated(X, z_list, title, caption, algorithm, target):
     
     dt = datetime.datetime.now().strftime("%d-%m-%Y-%H-%M-%S")
     dir = f' results/2d/%s/%s' % (target, algorithm)
-    makedirs(dir)
+    makedirs(dir, exist_ok=True)
     ani.save(f'%s/%s.gif' % (dir, dt), writer=writer)
 
 def plot_pointcloud(X, z_list, target, algorithm, caption):
