@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 import numpy as np
 from numpy.linalg import norm
-from faiss import IndexFlatL2
+# from faiss import IndexFlatL2
 from sklearn.neighbors import KNeighborsClassifier
 
 

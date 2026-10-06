@@ -1,5 +1,6 @@
 from time import time
 from itertools import product
+from tqdm.auto import tqdm
 
 import numpy as np
 from scores import *
@@ -44,7 +45,7 @@ def plain_smoothed(X, S, K, sigma, M):
         ),
     )
 
-    for _ in range(K):
+    for _ in tqdm(range(K)):
         z = sampling_loop(s=score, S=S, z=None, start_T=0, final_T=1)
         score.noise = np.random.multivariate_normal(
             np.zeros(X.shape[1]), np.eye(X.shape[1]), M

@@ -1,0 +1,7 @@
+#+title: To-Do
+* Understand code
+* DONE Plot velocities/trajectories
+* Apply to lab data
+** With feature augmentation
+** Without feature augmentation
+
