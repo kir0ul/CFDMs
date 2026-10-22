@@ -4,4 +4,10 @@
 * Apply to lab data
 ** With feature augmentation
 ** Without feature augmentation
+* Limitations of closed-form diffusion models
+** The dataset needs to be available at inference time (similar as for non-parametric methods like KNN)
+** It seems the closed form tends to memorize existing points in the dataset instead of generalizing like the original neural diffusion policies (they have some ways to mitigate this issue)
+** The closed form uses a kernel so they share the same issues as kernel methods (i.e. complexity of the algorithm is a function of the number of training instances, instead of the number of input dimensions)
+** In the experiments they only show state-based policies (i.e. inputs are end-effector positions and object poses), not visuomotor policies (with high-dimensional camera frames)
+** The performance is comparable but a bit less good than the original neural diffusion policies
 

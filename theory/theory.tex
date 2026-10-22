@@ -1,0 +1,70 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage{amsmath}
+\usepackage[ruled, lined]{algorithm2e}
+
+\DeclareMathOperator{\softmax}{softmax}
+\DeclareMathOperator{\N}{\mathcal{N}}
+
+\begin{document}
+\section{Score-based generative models}
+\begin{itemize}
+  \item $\rho_1$: target distribution
+  \item $\rho_0$: base distribution (typically $\N(0, I)$)
+  \item $\rho_t$: perturbed data distribution, for $t=0$ to $t=1$
+  \item $v_t$: velocity field, for $t=0$ to $t=1$
+  \item $\nabla\log\rho_t(z)$: score function
+\end{itemize}
+\begin{equation}
+  v^*_t(z) = \frac{1}{t} \big(z + (1 - t) \nabla\log\rho^*_t(z) \big)
+\end{equation}
+\begin{itemize}
+  \item $\rho^*_t$: marginal distribution of the random variable $z$, mixture of Gaussians with means $tx_i$ and common covariance matrix $(1 - t)^2I$
+\end{itemize}
+\begin{align}
+  z &= tx + (1 - t)\epsilon\text{: marginal distribution of the random variable } z\\
+  x &\sim \rho_1\\
+  (1 - t)\epsilon &\sim \N(0, (1 - t)^2I)
+\end{align}
+\begin{enumerate}
+  \item Closed-form score:
+    \begin{align}
+      \nabla\log\rho^*_t(z) &= \frac{1}{(1 - t)^2} (k_t(z) - z), \text{typically learned via score-matching or denoising}\\
+      k_t(z) &= \sum_{i=1}^N \softmax \bigg(-\frac{||z - tX||^2}{2(1 - t)^2} \bigg)_i tx_i
+    \end{align}
+  \item Smoothed closed-form score:
+    \begin{equation}
+      s_{\sigma, t}(z) = \frac{1}{(1 - t)} \Bigg(\frac{1}{M} \sum^M_{m=1} k_t(z + \sigma \epsilon_m) - z \Bigg)
+    \end{equation}
+        \begin{itemize}
+          \item $\sigma \geq 0$: smoothing parameter
+          \item $M$: noise samples
+        \end{itemize}
+\end{enumerate}
+
+
+\section{Sampling algorithm}
+\begin{equation}
+  v^*_t(z) = \frac{1}{t} \big(z + (1 - t) s_{\sigma, t}(z) \big)
+\end{equation}
+
+\begin{algorithm}[htbp]
+\caption{Forward Euler scheme sampling}
+\DontPrintSemicolon
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+\SetKwFunction{KwMax}{Max}
+
+\Input{Training set $\{x_i\}^N_{i=1}$, noise $\{u_{i, m}\}$, step size $h = \frac{1}{S}$, initial sample $z_0 = \N(0, I)$}
+% \Output{Minimum dominating set $\mathcal{D}$}
+%\SetKwProg{Func}{Function}{}{end}
+\BlankLine
+
+\For{$n = 0 \; \KwTo \; S-1$}{
+    $t_n = \frac{n}{S}$\;
+    $z_{n+1} \leftarrow z_n + h v_{\sigma, t_n}(z_n)$\;
+}
+\Return{$z_T$}
+\end{algorithm}
+
+\end{document}
