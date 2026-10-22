@@ -1,5 +1,9 @@
 \documentclass[11pt, a4paper]{article}
 
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{draftfigure}
+\usepackage[all]{foreign}
 \usepackage{amsmath}
 \usepackage[ruled, lined]{algorithm2e}
 
@@ -7,7 +11,20 @@
 \DeclareMathOperator{\N}{\mathcal{N}}
 
 \begin{document}
-\section{Score-based generative models}
+
+\section{Background}
+\subsection{Score-based generative models}
+
+% \begin{center}
+%   \includegraphics[width=0.5\linewidth]{example-image}
+% \end{center}
+\begin{figure}[htbp]
+     \centering
+     \setkeys{draftfigure}{content={Placeholder}, position={center}}
+     \includegraphics[draft, width=0.6\linewidth]{example-image}
+     \caption{Figure illustrating the forward and reverse diffusion process}
+    \end{figure}
+
 \begin{itemize}
   \item $\rho_1$: target distribution
   \item $\rho_0$: base distribution (typically $\N(0, I)$)
@@ -43,7 +60,7 @@
 \end{enumerate}
 
 
-\section{Sampling algorithm}
+\subsection{Sampling algorithm}
 \begin{equation}
   v^*_t(z) = \frac{1}{t} \big(z + (1 - t) s_{\sigma, t}(z) \big)
 \end{equation}
@@ -66,5 +83,22 @@
 }
 \Return{$z_T$}
 \end{algorithm}
+
+\subsection{Advantages \& drawbacks}
+Advantages:
+\begin{itemize}
+  \item Generative model
+  \item Can model multimodal densities
+  \item Works well with highly multi-dimensional data
+\end{itemize}
+
+Drawbacks:
+\begin{itemize}
+  \item The dataset needs to be available at inference time (similar as for non-parametric methods like KNN)
+  \item The closed form tends to memorize existing points in the dataset instead of generalizing like the original neural diffusion policies (can be mitigated by using the smoothed score and several $M$ noise samples)
+  \item The closed form uses a kernel so they share the same issues as kernel methods (\ie{} complexity of the algorithm is a function of the number of training instances, instead of the number of input dimensions)
+  \item In the experiments they only show state-based policies (\ie{} inputs are end-effector positions and object poses), not visuomotor policies (with high-dimensional camera frames)
+  \item The performance is comparable but a bit less good than the original neural diffusion policies
+\end{itemize}
 
 \end{document}
