@@ -44,7 +44,7 @@
   (1 - t)\epsilon &\sim \N(0, (1 - t)^2I)
 \end{align}
 \begin{enumerate}
-  \item Closed-form score:
+  \item Closed-form score for a finite dataset $\mathcal{D} = \{ \hat{x_i}\}^N_0$:
     \begin{align}
       \nabla\log\rho^*_t(z) &= \frac{1}{(1 - t)^2} (k_t(z) - z), \text{typically learned via score-matching or denoising}\\
       k_t(z) &= \sum_{i=1}^N \softmax \bigg(-\frac{||z - tX||^2}{2(1 - t)^2} \bigg)_i tx_i
@@ -90,6 +90,7 @@ Advantages:
   \item Generative model
   \item Can model multimodal densities
   \item Works well with highly multi-dimensional data
+  \item Composition of velocity fields? \Ie{} multi-dimensional composition of skills?
 \end{itemize}
 
 Drawbacks:

@@ -82,14 +82,14 @@ class UnsmoothedScore(Score):
         assert weights_softmax.shape == (1, num_samples)
 
         # # Calculate the distance-weighted average of all N rescaled training points
-        weighted_sum = np.sum(
+        k_t_z = np.sum(
             np.expand_dims(weights_softmax.squeeze(), axis=1) * tX, axis=0
-        )
-        # print('Weighted sum: \n', weighted_sum, '\n')
-        assert weighted_sum.shape == (num_dims,)
+        )  # (Eq. 2)
+        # print('Weighted sum: \n', k_t_z, '\n')
+        assert k_t_z.shape == (num_dims,)
 
         # Calculate the score
-        score = ((weighted_sum - z) / ((1 - t) ** 2)).squeeze()
+        score = ((k_t_z - z) / ((1 - t) ** 2)).squeeze()  # (Eq. 1)
         # print("Score (unsmoothed):\n", score, '\n')
         assert score.shape == (num_dims,)
 
@@ -104,7 +104,7 @@ class SmoothedScore(Score):
 
     def forward(self, t, z):
 
-        num_noises = self.noise.shape[0]
+        M_num_noises = self.noise.shape[0]
         num_samples = self.X.shape[0]
         num_dims = self.X.shape[1]
 
@@ -113,10 +113,13 @@ class SmoothedScore(Score):
         # print('tX:\n', tX, '\n)
         assert tX.shape == (num_samples, num_dims)
 
-        # Calculate the smoothed noise
+        # Calculate the smoothed noise $\sigma \epsilon_m$
+        # Noise-dependent squared norm: $f(X) = ||X - \sigma t \epsilon||^2$
+        # Expanding: $f(X) = ||X||^2 - 2\sigma t \epsilon^\top X + \sigma^2 t^2 ||\epsilon||^2$
+        # The smoothed noise is the cross-term: $- 2\sigma t \epsilon^\top X$
         noise_smoothed = -2 * self.sigma * t * np.inner(self.noise, self.X)
         # print('noise_smoothed:\n', noise_smoothed, '\n')
-        assert noise_smoothed.shape == (num_noises, num_samples)
+        assert noise_smoothed.shape == (M_num_noises, num_samples)
 
         distance = z - tX
         # print('distance:\n', distance, '\n')
@@ -131,22 +134,22 @@ class SmoothedScore(Score):
             2 * ((1 - t) ** 2)
         )
         # print('weights:\n', weights, '\n')
-        assert weights.shape == (num_noises, num_samples)
+        assert weights.shape == (M_num_noises, num_samples)
 
         e_x = np.exp(
             weights - np.max(weights, axis=1, keepdims=True)
         )  # Subtract max value for numerical stability, doesn't affect softmax values
         weights_softmax = e_x / np.sum(e_x, axis=-1, keepdims=True)
         # print('weights_softmax:\n', weights_softmax, '\n')
-        assert weights_softmax.shape == (num_noises, num_samples)
+        assert weights_softmax.shape == (M_num_noises, num_samples)
 
         k = np.expand_dims(weights_softmax, axis=2) * tX
         # print('k:\n', k, '\n')
-        assert k.shape == (num_noises, num_samples, num_dims)
+        assert k.shape == (M_num_noises, num_samples, num_dims)
 
         score = (
-            ((k.sum(axis=1).sum(axis=0) / num_noises) - z) / ((1 - t) ** 2)
-        ).squeeze()
+            ((k.sum(axis=1).sum(axis=0) / M_num_noises) - z) / ((1 - t) ** 2)
+        ).squeeze()  # (Eq. 3)
         # print('score:\n', score, '\n')
         assert score.shape == (num_dims,)
 

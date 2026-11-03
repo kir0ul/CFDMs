@@ -1,13 +1,24 @@
 #+title: To-Do
-* Understand code
-* DONE Plot velocities/trajectories
-* Apply to lab data
-** With feature augmentation
-** Without feature augmentation
-* Limitations of closed-form diffusion models
-** The dataset needs to be available at inference time (similar as for non-parametric methods like KNN)
-** It seems the closed form tends to memorize existing points in the dataset instead of generalizing like the original neural diffusion policies (they have some ways to mitigate this issue)
-** The closed form uses a kernel so they share the same issues as kernel methods (i.e. complexity of the algorithm is a function of the number of training instances, instead of the number of input dimensions)
-** In the experiments they only show state-based policies (i.e. inputs are end-effector positions and object poses), not visuomotor policies (with high-dimensional camera frames)
-** The performance is comparable but a bit less good than the original neural diffusion policies
-
+* ToDo
+** DONE Understand code
+** DONE Plot velocities/trajectories
+** TODO Apply unconditional diffusion to timeseries
+*** TODO Toy timeseries from movement_primitives
+*** Apply to lab data
+**** With feature augmentation
+**** Without feature augmentation
+** WAIT Implement conditional diffusion
+* Questions
+** Limitations of closed-form diffusion models
+*** The dataset needs to be available at inference time (similar as for non-parametric methods like KNN)
+*** It seems the closed form tends to memorize existing points in the dataset instead of generalizing like the original neural diffusion policies (they have some ways to mitigate this issue)
+*** The closed form uses a kernel so they share the same issues as kernel methods (i.e. complexity of the algorithm is a function of the number of training instances, instead of the number of input dimensions)
+*** In the experiments they only show state-based policies (i.e. inputs are end-effector positions and object poses), not visuomotor policies (with high-dimensional camera frames)
+*** The performance is comparable but a bit less good than the original neural diffusion policies
+** [?] How to condition on starting/goal points?
+*** Classifier guidance
+*** Conditioned guidance
+*** KILL Classifier-free guidance
+I.e. using dropout
+** [?] Does the formulation need to condition on previous data points of the trajectory?
+*** DONE Check application to timeseries (Ko, 2025)
