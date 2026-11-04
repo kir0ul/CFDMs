@@ -293,7 +293,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_events-0.12.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server-2.21.1-pyh5ded981_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.5.4-pyhcf101f3_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.4-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.5-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.28.1-pyh5ded981_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.17-pyhcf101f3_0.conda
@@ -5001,9 +5001,9 @@ packages:
   run_exports: {}
   size: 22052
   timestamp: 1768574057200
-- conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.4-pyhd8ed1ab_0.conda
-  sha256: 4a62d5b49faefea568c5448442977d075db778b5ebda6fecc6e6766d60fbabb0
-  md5: e02640feae12005b7c3f3260173d3658
+- conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.6.5-pyhd8ed1ab_0.conda
+  sha256: ba9514478c90ac2b3b64c797317b7d71e1c311730749725ca56034747be9c1d2
+  md5: a9a592461b89feaab5cda0a2142207c5
   depends:
   - async-lru >=1.0.0
   - httpx >=0.25.0,<1
@@ -5025,8 +5025,8 @@ packages:
   purls:
   - pkg:pypi/jupyterlab?source=compressed-mapping
   run_exports: {}
-  size: 13364752
-  timestamp: 1790013886928
+  size: 13568617
+  timestamp: 1793297335686
 - conda: https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_2.conda
   sha256: dc24b900742fdaf1e077d9a3458fd865711de80bca95fe3c6d46610c532c6ef0
   md5: fd312693df06da3578383232528c468d

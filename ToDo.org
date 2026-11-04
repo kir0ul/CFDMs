@@ -2,8 +2,8 @@
 * ToDo
 ** DONE Understand code
 ** DONE Plot velocities/trajectories
-** TODO Apply unconditional diffusion to timeseries
-*** TODO Toy timeseries from movement_primitives
+** Apply unconditional diffusion to timeseries
+*** DONE Toy timeseries from movement_primitives
 *** Apply to lab data
 **** With feature augmentation
 **** Without feature augmentation
