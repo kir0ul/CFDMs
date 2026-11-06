@@ -17,8 +17,26 @@
 *** The performance is comparable but a bit less good than the original neural diffusion policies
 ** [?] How to condition on starting/goal points?
 *** Classifier guidance
+Train a separate classifier that can do the guidance
 *** Conditioned guidance
+Standard formulation
 *** KILL Classifier-free guidance
 I.e. using dropout
-** [?] Does the formulation need to condition on previous data points of the trajectory?
+*** Safe bound via optimization
+**** Check "Constrained Diffusers for Safe Planning and Control"
+Argmin of x closest to z during reverse diffusion process
+*** Conditional diffusion formulation
+**** TODO Check why Dirach in Lai's PDM book
+** YES Does the formulation need to condition on previous data points of the trajectory?
 *** DONE Check application to timeseries (Ko, 2025)
+*** Yes, otherwise the generated data is all over the place
+** [?] How to sample a spatio-temporally coherent trajectory?
+*** TODO Condition on $t_0:t_{k-1}$ previous data points
+**** TODO Check (Janner, et al. 2022)
+*** NO Fit Gaussian mean and covariance
+**** It would be like ProMP, doesn't make much sense, at this point why not do ProMP directly?
+**** Loose multimodality
+*** NO Cluster and interpolate trajectory along N samples
+Like a Guassian but worse?
+* Classification
+${X_i, y_i}$ pairs \to conditional diffusion $p(y|x)$
