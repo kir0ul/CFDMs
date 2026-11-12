@@ -6,6 +6,31 @@
 \usepackage[all]{foreign}
 \usepackage{amsmath}
 \usepackage[ruled, lined]{algorithm2e}
+\usepackage{natbib}
+\renewcommand\bibname{References}
+\renewcommand{\bibsection}{\section{\bibname}}
+\bibliographystyle{apalike}
+\usepackage{hyperref}
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+    unicode=false,          % non-Latin characters in Acrobat’s bookmarks
+    pdftoolbar=true,        % show Acrobat’s toolbar?
+    pdfmenubar=true,        % show Acrobat’s menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    % pdftitle={My title},    % title
+    % pdfauthor={Author},     % author
+    % pdfsubject={Subject},   % subject of the document
+    % pdfcreator={Creator},   % creator of the document
+    % pdfproducer={Producer}, % producer of the document
+    % pdfkeywords={keyword1, key2, key3}, % list of keywords
+    pdfnewwindow=true,      % links in new PDF window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=red,          % color of internal links (change box color with linkbordercolor)
+    citecolor=green,        % color of links to bibliography
+    filecolor=cyan,         % color of file links
+    urlcolor=magenta        % color of external links
+}
 
 \DeclareMathOperator{\softmax}{softmax}
 \DeclareMathOperator{\N}{\mathcal{N}}
@@ -108,5 +133,14 @@ ToDo
 
 \section{Spatio-temporally coherent sampling, \ie{} sampling conditioned on previous time steps $t_0:t_{k-1}$}
 ToDo
+
+\section{Related works}
+\begin{itemize}
+  \item \citep{scarvelis_closed-form_2025} defines the original closed form diffusion formulation.
+  \item \citep{mishra_training-free_2026} applies closed form diffusion to imitation learning, \ie{} they predict the next action based on observed input state, while we do LfD and predict the next coordinate based on a sequence of previous coordinates.
+  \item \citep{christopher_constrained_2024, zhang_constrained_2025} propose methods to satisfy hard constraints on the data generated from the diffusion process.
+\end{itemize}
+
+\bibliography{references}
 
 \end{document}
